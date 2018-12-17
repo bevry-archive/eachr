@@ -5,8 +5,9 @@
     "allowJs": true,
     "noEmit": true,
     "strict": true,
-    "isolatedModules": false,
-    "esModuleInterop": true
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "alwaysStrict": true
   },
   "include": ["source"]
 }

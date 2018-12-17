@@ -65,17 +65,21 @@
   },
   "editions": [
     {
-      "description": "javascript source code with require for modules",
+      "description": "esnext source code with require for modules",
       "directory": "source",
       "entry": "index.js",
       "tags": [
         "javascript",
+        "esnext",
         "require"
       ],
-      "engines": false
+      "engines": {
+        "node": "6 || 8 || 10 || 11",
+        "browsers": false
+      }
     },
     {
-      "description": "compiled for browsers with require for modules",
+      "description": "esnext compiled for browsers with require for modules",
       "directory": "edition-browsers",
       "entry": "index.js",
       "tags": [
@@ -88,7 +92,7 @@
       }
     },
     {
-      "description": "compiled for node.js 0.10 with require for modules",
+      "description": "esnext compiled for node.js 0.10 with require for modules",
       "directory": "edition-node-0.10",
       "entry": "index.js",
       "tags": [
@@ -96,7 +100,7 @@
         "require"
       ],
       "engines": {
-        "node": true,
+        "node": "0.10 || 0.12 || 4 || 6 || 8 || 10 || 11",
         "browsers": false
       }
     }
@@ -110,14 +114,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.0",
-    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
-    "@babel/preset-typescript": "^7.1.0",
     "assert-helpers": "^4.5.1",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "eslint": "^5.9.0",
+    "eslint": "^5.10.0",
     "eslint-config-bevry": "^1.0.2",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-babel": "^5.3.0",
@@ -135,6 +136,30 @@
     "typescript": "^3.2.2",
     "typescript-eslint-parser": "^21.0.2",
     "valid-directory": "^1.0.0"
+  },
+  "scripts": {
+    "our:clean": "rm -Rf ./docs ./edition* ./es2015 ./es5 ./out",
+    "our:compile": "npm run our:compile:edition-browsers && npm run our:compile:edition-node-0.10",
+    "our:compile:edition-browsers": "env BABEL_ENV=edition-browsers babel --out-dir ./edition-browsers ./source",
+    "our:compile:edition-node-0.10": "env BABEL_ENV=edition-node-0.10 babel --out-dir ./edition-node-0.10 ./source",
+    "our:deploy": "echo no need for this project",
+    "our:meta": "npm run our:meta:docs && npm run our:meta:projectz",
+    "our:meta:docs": "rm -Rf ./docs && jsdoc --recurse --pedantic --access all --destination ./docs --package ./package.json --readme ./README.md --template ./node_modules/minami ./source && mv ./docs/$npm_package_name/$npm_package_version/* ./docs/ && rm -Rf ./docs/$npm_package_name/$npm_package_version",
+    "our:meta:projectz": "projectz compile",
+    "our:release": "npm run our:release:prepare && npm run our:release:check-changelog && npm run our:release:check-dirty && npm run our:release:tag && npm run our:release:push",
+    "our:release:check-changelog": "cat ./HISTORY.md | grep v$npm_package_version || (echo add a changelog entry for v$npm_package_version && exit -1)",
+    "our:release:check-dirty": "git diff --exit-code",
+    "our:release:prepare": "npm run our:clean && npm run our:compile && npm run our:test && npm run our:meta",
+    "our:release:push": "git push origin master && git push origin --tags",
+    "our:release:tag": "export MESSAGE=$(cat ./HISTORY.md | sed -n \"/## v$npm_package_version/,/##/p\" | sed 's/## //' | awk 'NR>1{print buf}{buf = $0}') && test \"$MESSAGE\" || (echo 'proper changelog entry not found' && exit -1) && git tag v$npm_package_version -am \"$MESSAGE\"",
+    "our:setup": "npm run our:setup:npm",
+    "our:setup:npm": "npm install",
+    "our:test": "npm run our:verify && npm test",
+    "our:verify": "npm run our:verify:directory && npm run our:verify:eslint && npm run our:verify:typescript",
+    "our:verify:directory": "npx valid-directory",
+    "our:verify:eslint": "eslint --fix --ignore-pattern '**/*.d.ts' './source/**/*.*'",
+    "our:verify:typescript": "tsc --project .",
+    "test": "node ./test.js"
   },
   "eslintConfig": {
     "extends": [
@@ -156,13 +181,10 @@
                 "browsers": "defaults"
               }
             }
-          ],
-          "@babel/preset-typescript"
+          ]
         ],
         "plugins": [
-          "@babel/proposal-class-properties",
-          "@babel/proposal-object-rest-spread",
-          "add-module-exports"
+          "@babel/proposal-object-rest-spread"
         ]
       },
       "edition-node-0.10": {
@@ -174,42 +196,12 @@
                 "node": "0.10"
               }
             }
-          ],
-          "@babel/preset-typescript"
+          ]
         ],
         "plugins": [
-          "@babel/proposal-class-properties",
-          "@babel/proposal-object-rest-spread",
-          "add-module-exports"
+          "@babel/proposal-object-rest-spread"
         ]
       }
     }
-  },
-  "scripts": {
-    "our:clean": "rm -Rf ./docs ./edition* ./es2015 ./es5 ./out",
-    "our:compile": "npm run our:compile:edition-browsers && npm run our:compile:edition-node-0.10",
-    "our:compile:edition-browsers": "env BABEL_ENV=edition-browsers babel --extensions \".js,.jsx,.ts,.tsx\" --out-dir ./edition-browsers ./source",
-    "our:compile:edition-node-0.10": "env BABEL_ENV=edition-node-0.10 babel --extensions \".js,.jsx.ts,.tsx\" --out-dir ./edition-node-0.10 ./source",
-    "our:deploy": "echo no need for this project",
-    "our:meta": "npm run our:meta:docs && npm run our:meta:projectz",
-    "our:meta:docs": "npm run our:meta:docs:jsdoc && npm run our:meta:docs:typedoc",
-    "our:meta:docs:typedoc": "typedoc --includeDeclarations --mode file --exclude '**/*test*' --name \"$npm_package_name\" --readme ./README.md --out ./docs ./source",
-    "our:meta:docs:jsdoc": "rm -Rf ./docs && jsdoc --recurse --pedantic --access all --destination ./docs --package ./package.json --readme ./README.md --template ./node_modules/minami ./source && mv ./docs/$npm_package_name/$npm_package_version/* ./docs/ && rm -Rf ./docs/$npm_package_name/$npm_package_version",
-    "our:meta:projectz": "projectz compile",
-    "our:release": "npm run our:release:prepare && npm run our:release:check-changelog && npm run our:release:check-dirty && npm run our:release:tag && npm run our:release:push",
-    "our:release:check-changelog": "cat ./HISTORY.md | grep v$npm_package_version || (echo add a changelog entry for v$npm_package_version && exit -1)",
-    "our:release:check-dirty": "git diff --exit-code",
-    "our:release:prepare": "npm run our:clean && npm run our:compile && npm run our:test && npm run our:meta",
-    "our:release:push": "git push origin master && git push origin --tags",
-    "our:release:tag": "export MESSAGE=$(cat ./HISTORY.md | sed -n \"/## v$npm_package_version/,/##/p\" | sed 's/## //' | awk 'NR>1{print buf}{buf = $0}') && test \"$MESSAGE\" || (echo 'proper changelog entry not found' && exit -1) && git tag v$npm_package_version -am \"$MESSAGE\"",
-    "our:setup": "npm run our:setup:npm",
-    "our:setup:npm": "npm install",
-    "our:test": "npm run our:verify && npm test",
-    "our:verify": "npm run our:verify:directory && npm run our:verify:eslint && npm run our:verify:typescript",
-    "our:verify:directory": "npx valid-directory",
-    "our:verify:eslint": "eslint --fix --ignore-pattern '**/*.d.ts' './source/**/*.*'",
-    "our:verify:typescript": "tsc --project .",
-    "test": "node ./test.js"
-  },
-  "optionalDependencies": {}
+  }
 }
