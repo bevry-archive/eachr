@@ -1,6 +1,5 @@
 // @ts-check
 /* eslint no-cond-assign:0 */
-// @ts-ignore
 'use strict'
 
 // Import
