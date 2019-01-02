@@ -4,7 +4,6 @@
 
 <!-- /TITLE -->
 
-
 <!-- BADGES/ -->
 
 <span class="badge-travisci"><a href="http://travis-ci.org/bevry/eachr" title="Check this project's build status on TravisCI"><img src="https://img.shields.io/travis/bevry/eachr/master.svg" alt="Travis CI Build Status" /></a></span>
@@ -26,59 +25,72 @@
 
 <!-- /BADGES -->
 
-
 <!-- DESCRIPTION/ -->
 
 Give eachr an item to iterate (array, object or map) and an iterator, then in return eachr gives iterator the value and key of each item, and will stop if the iterator returned false.
 
 <!-- /DESCRIPTION -->
 
-
 <!-- INSTALL/ -->
 
 <h2>Install</h2>
 
-<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>NPM</h3></a><ul>
+<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>npm</h3></a>
+
+<ul>
 <li>Install: <code>npm install --save eachr</code></li>
-<li>Module: <code>require('eachr')</code></li></ul>
+<li>Require: <code>require('eachr')</code></li>
+</ul>
 
-<a href="http://browserify.org" title="Browserify lets you require('modules') in the browser by bundling up all of your dependencies"><h3>Browserify</h3></a><ul>
-<li>Install: <code>npm install --save eachr</code></li>
-<li>Module: <code>require('eachr')</code></li>
-<li>CDN URL: <code>//wzrd.in/bundle/eachr@3.2.0</code></li></ul>
+<a href="https://jspm.io" title="Native ES Modules CDN"><h3>jspm</h3></a>
 
-<a href="http://enderjs.com" title="Ender is a full featured package manager for your browser"><h3>Ender</h3></a><ul>
-<li>Install: <code>ender add eachr</code></li>
-<li>Module: <code>require('eachr')</code></li></ul>
+```html
+<script type="module">
+    import * as pkg from '//dev.jspm.io/eachr'
+</script>
+```
 
-<h3><a href="https://github.com/bevry/editions" title="Editions are the best way to produce and consume packages you care about.">Editions</a></h3>
+<h3><a href="https://editions.bevry.me" title="Editions are the best way to produce and consume packages you care about.">Editions</a></h3>
 
 <p>This package is published with the following editions:</p>
 
-<ul><li><code>eachr</code> aliases <code>eachr/index.js</code> which uses <a href="https://github.com/bevry/editions" title="Editions are the best way to produce and consume packages you care about.">Editions</a> to automatically select the correct edition for the consumers environment</li>
+<ul><li><code>eachr</code> aliases <code>eachr/index.js</code> which uses <a href="https://editions.bevry.me" title="Editions are the best way to produce and consume packages you care about.">Editions</a> to automatically select the correct edition for the consumers environment</li>
 <li><code>eachr/source/index.js</code> is esnext source code with require for modules</li>
 <li><code>eachr/edition-browsers/index.js</code> is esnext compiled for browsers with require for modules</li>
 <li><code>eachr/edition-node-0.10/index.js</code> is esnext compiled for node.js 0.10 with require for modules</li></ul>
 
-<!-- /INSTALL -->
+<h3><a href="https://www.typescriptlang.org/" title="TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. ">TypeScript</a></h3>
 
+This project provides its type information via inline <a href="http://usejsdoc.org" title="JSDoc is an API documentation generator for JavaScript, similar to Javadoc or phpDocumentor">JSDoc Comments</a>. To make use of this in <a href="https://www.typescriptlang.org/" title="TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. ">TypeScript</a>, set your <code>maxNodeModuleJsDepth</code> compiler option to `5` or thereabouts. You can accomlish this via your `tsconfig.json` file like so:
+
+```json
+{
+    "compilerOptions": {
+        "maxNodeModuleJsDepth": 5
+    }
+}
+```
+
+<!-- /INSTALL -->
 
 ## Usage
 
+[JSDoc API Documentation.](http://master.eachr.bevry.surge.sh/docs/jsdoc/) [TypeDoc API Documentation.](http://master.eachr.bevry.surge.sh/docs/typedoc/)
+
 Eachr accepts an array, object, or map. The iterator is bound to the list, and receives three arguments: the value, key, and list.
 
-``` javascript
+```javascript
 // Prepare
 const eachr = require('eachr')
 const arr = ['first', 'second', 'third']
-const obj = {a: 'first', b: 'second', c: 'third'}
+const obj = { a: 'first', b: 'second', c: 'third' }
 const map = new Map([['a', 'first'], ['b', 'second'], ['c', 'third']])
-function iterator (value, key) {
-	console.log({value: value, key: key})
-	if ( value === 'second' ) {
-		console.log('break')
-		return false
-	}
+function iterator(value, key) {
+    console.log({ value: value, key: key })
+    if (value === 'second') {
+        console.log('break')
+        return false
+    }
 }
 
 // Cycle Array
@@ -98,7 +110,6 @@ eachr(map, iterator)
 // {'value': 'first',  'key': 'a'}
 // {'value': 'second', 'key': 'b'}
 // break
-
 ```
 
 <!-- HISTORY/ -->
@@ -109,7 +120,6 @@ eachr(map, iterator)
 
 <!-- /HISTORY -->
 
-
 <!-- CONTRIBUTE/ -->
 
 <h2>Contribute</h2>
@@ -117,7 +127,6 @@ eachr(map, iterator)
 <a href="https://github.com/bevry/eachr/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
 
 <!-- /CONTRIBUTE -->
-
 
 <!-- BACKERS/ -->
 
@@ -156,7 +165,6 @@ These amazing people have contributed code to this project:
 <a href="https://github.com/bevry/eachr/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
 
 <!-- /BACKERS -->
-
 
 <!-- LICENSE/ -->
 

@@ -14,13 +14,11 @@ const typeChecker = require('typechecker')
  * @param {*} subject The collection we are iterating.
  * @returns Return `false` if you wish to break out of the iteration.
  * @example
- * ``` javascript
  * // stop iterating when we encounter break
  * eachr(['hello', 'world', 'break', 'never'], function (value, index) {
  *   return value === 'break' ? false : console.log(value)
  * })
  * // ^ logs: hello, world
- * ```
  */
 
 /**

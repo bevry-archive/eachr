@@ -5,8 +5,11 @@
     "allowJs": true,
     "noEmit": true,
     "strict": true,
-    "isolatedModules": true,
-    "esModuleInterop": true
+    "isolatedModules": false,
+    "esModuleInterop": true,
+    "maxNodeModuleJsDepth": 5
   },
-  "include": ["source"]
+  "include": [
+    "source"
+  ]
 }
