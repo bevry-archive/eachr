@@ -4,6 +4,7 @@
 
 <!-- /TITLE -->
 
+
 <!-- BADGES/ -->
 
 <span class="badge-travisci"><a href="http://travis-ci.org/bevry/eachr" title="Check this project's build status on TravisCI"><img src="https://img.shields.io/travis/bevry/eachr/master.svg" alt="Travis CI Build Status" /></a></span>
@@ -25,18 +26,19 @@
 
 <!-- /BADGES -->
 
+
 <!-- DESCRIPTION/ -->
 
 Give eachr an item to iterate (array, object or map) and an iterator, then in return eachr gives iterator the value and key of each item, and will stop if the iterator returned false.
 
 <!-- /DESCRIPTION -->
 
+
 <!-- INSTALL/ -->
 
 <h2>Install</h2>
 
 <a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>npm</h3></a>
-
 <ul>
 <li>Install: <code>npm install --save eachr</code></li>
 <li>Require: <code>require('eachr')</code></li>
@@ -44,7 +46,7 @@ Give eachr an item to iterate (array, object or map) and an iterator, then in re
 
 <a href="https://jspm.io" title="Native ES Modules CDN"><h3>jspm</h3></a>
 
-```html
+``` html
 <script type="module">
     import * as pkg from '//dev.jspm.io/eachr'
 </script>
@@ -63,15 +65,16 @@ Give eachr an item to iterate (array, object or map) and an iterator, then in re
 
 This project provides its type information via inline <a href="http://usejsdoc.org" title="JSDoc is an API documentation generator for JavaScript, similar to Javadoc or phpDocumentor">JSDoc Comments</a>. To make use of this in <a href="https://www.typescriptlang.org/" title="TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. ">TypeScript</a>, set your <code>maxNodeModuleJsDepth</code> compiler option to `5` or thereabouts. You can accomlish this via your `tsconfig.json` file like so:
 
-```json
+``` json
 {
-    "compilerOptions": {
-        "maxNodeModuleJsDepth": 5
-    }
+  "compilerOptions": {
+    "maxNodeModuleJsDepth": 5
+  }
 }
 ```
 
 <!-- /INSTALL -->
+
 
 ## Usage
 
@@ -120,6 +123,7 @@ eachr(map, iterator)
 
 <!-- /HISTORY -->
 
+
 <!-- CONTRIBUTE/ -->
 
 <h2>Contribute</h2>
@@ -127,6 +131,7 @@ eachr(map, iterator)
 <a href="https://github.com/bevry/eachr/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
 
 <!-- /CONTRIBUTE -->
+
 
 <!-- BACKERS/ -->
 
@@ -165,6 +170,7 @@ These amazing people have contributed code to this project:
 <a href="https://github.com/bevry/eachr/blob/master/CONTRIBUTING.md#files">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a>
 
 <!-- /BACKERS -->
+
 
 <!-- LICENSE/ -->
 

@@ -105,6 +105,7 @@
       }
     }
   ],
+  "types": "source/index.d.ts",
   "main": "index.js",
   "browser": "edition-browsers/index.js",
   "dependencies": {
