@@ -4,7 +4,7 @@
 const { equal, deepEqual } = require('assert-helpers')
 const kava = require('kava')
 const semver = require('semver')
-const eachr = require('../')
+const eachr = require('./')
 
 // Test
 kava.suite('eachr', function(suite, test) {
